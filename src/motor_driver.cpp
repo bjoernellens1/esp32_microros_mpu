@@ -14,7 +14,7 @@ motor_setup_t motor_setup = {
     .PWM_FREQUENCY = 50,
     .PWM_RESOLUTION = LEDC_TIMER_12_BIT,
     .PWM_TIMER = LEDC_TIMER_0,
-    .PWM_MODE = LEDC_HIGH_SPEED_MODE,
+    // .PWM_MODE = LEDC_HIGH_SPEED_MODE,
     .PWM_MOTOR_MIN = 900,
     .PWM_MOTOR_MAX = 1500,
 };

@@ -104,32 +104,32 @@ void encoder_count_reset()
 // encoder_direction function
 void encoder_direction_()
 {
-    // left encoder direction
-    if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_LEFT_FORWARD) > 0)
-    {
-        encoder_direction.left = 1;
-    }
-    else if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_LEFT_BACKWARD) > 0)
-    {
-        encoder_direction.left = -1;
-    }
-    else
-    {
-        encoder_direction.left = 0;
-    }
-    // right encoder direction
-    if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_RIGHT_FORWARD) > 0)
-    {
-        encoder_direction.right = 1;
-    }
-    else if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_RIGHT_BACKWARD) > 0)
-    {
-        encoder_direction.right = -1;
-    }
-    else
-    {
-        encoder_direction.right = 0;
-    }
+    // // left encoder direction
+    // if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_LEFT_FORWARD) > 0)
+    // {
+    //     encoder_direction.left = 1;
+    // }
+    // else if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_LEFT_BACKWARD) > 0)
+    // {
+    //     encoder_direction.left = -1;
+    // }
+    // else
+    // {
+    //     encoder_direction.left = 0;
+    // }
+    // // right encoder direction
+    // if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_RIGHT_FORWARD) > 0)
+    // {
+    //     encoder_direction.right = 1;
+    // }
+    // else if (ledc_get_duty(LEDC_HIGH_SPEED_MODE, motor_setup.PWM_RIGHT_BACKWARD) > 0)
+    // {
+    //     encoder_direction.right = -1;
+    // }
+    // else
+    // {
+    //     encoder_direction.right = 0;
+    // }
 }
 
 // encoder speed function

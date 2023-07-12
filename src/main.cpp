@@ -5,8 +5,8 @@
 #endif
 #include "ros.h"
 #include "mpu9250.h"
-#include "motor_driver.h"
-#include "encoder.h"
+// #include "motor_driver.h"
+// #include "encoder.h"
 
 
 imu_setup_t imu_setup = {
@@ -25,8 +25,8 @@ char psk[]= "pac999CPS";
 set_microros_wifi_transports(ssid, psk, agent_ip, agent_port);
 
 // import functions
-InitMotorDriver();
-InitEncoder();
+// InitMotorDriver();
+// InitEncoder();
 setup_imu(imu_setup);
 setupRos();
 

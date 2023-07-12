@@ -48,14 +48,14 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
     return;
     }
 
-    // save linear and angular velocity in motor_speed struct
-    motor_speed.linear = constrain(msg.linear.x, -1, 1);
-    motor_speed.angular = constrain(msg.angular.z, -1, 1);
-    SetMotorSpeed(motor_speed);
+    // // save linear and angular velocity in motor_speed struct
+    // motor_speed.linear = constrain(msg.linear.x, -1, 1);
+    // motor_speed.angular = constrain(msg.angular.z, -1, 1);
+    // SetMotorSpeed(motor_speed);
     get_imu_data();
     publish_imu_raw();
     publish_mag_raw();
-    PublishWheelOdom();
+    // PublishWheelOdom();
 
 }
 
@@ -69,21 +69,21 @@ void setupRos() {
   // create node
   RCCHECK(rclc_node_init_default(&node, "esp32_differential_drive", "", &support));
 
-  // create subscriber to subscribe twist message from topic /cmd_vel
-  rcl_subscription_t subscriber;
-  RCCHECK(rclc_subscription_init_default(
-    &subscriber,
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
-    "/cmd_vel"));
+  // // create subscriber to subscribe twist message from topic /cmd_vel
+  // rcl_subscription_t subscriber;
+  // RCCHECK(rclc_subscription_init_default(
+  //   &subscriber,
+  //   &node,
+  //   ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
+  //   "/cmd_vel"));
     
  
-  // create publisher to /wheel/odometry
-  RCCHECK(rclc_publisher_init_default(
-    &publisher,
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(nav_msgs, msg, Odometry),
-    "/wheel/odometry"));
+  // // create publisher to /wheel/odometry
+  // RCCHECK(rclc_publisher_init_default(
+  //   &publisher,
+  //   &node,
+  //   ROSIDL_GET_MSG_TYPE_SUPPORT(nav_msgs, msg, Odometry),
+  //   "/wheel/odometry"));
 
   // create publisher to publish imu data
   RCCHECK(rclc_publisher_init_default(
@@ -109,7 +109,7 @@ void setupRos() {
 
   // create executor
   RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
-  RCCHECK(rclc_executor_add_subscription(&executor,&subscriber, &msg, &cmd_vel_callback, ON_NEW_DATA));
+  // RCCHECK(rclc_executor_add_subscription(&executor,&subscriber, &msg, &cmd_vel_callback, ON_NEW_DATA));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
 
   msg_int.data = 0;
@@ -148,34 +148,34 @@ void publish_mag_raw() {
 
 }
 
-void PublishWheelOdom() {
-    // get current time for header timestamp field in microROS message
-    odom_msg.header.frame_id.data = const_cast<char*>("odom");
-    odom_msg.child_frame_id.data = const_cast<char*>("base_link");
-    odom_msg.header.stamp.sec = (uint32_t) (esp_timer_get_time() / 1000000);
-    odom_msg.header.stamp.nanosec = (uint32_t) (esp_timer_get_time() % 1000000) * 1000;
-    // set the position
-    odom_msg.pose.pose.position.x = encoder_position.x; // x position
-    odom_msg.pose.pose.position.y = encoder_position.y; // y position
-    odom_msg.pose.pose.position.z = 0.0; // z position
-    // set the orientation
-    odom_msg.pose.pose.orientation.x = 0.0; // x orientation 
-    odom_msg.pose.pose.orientation.y = 0.0; // y orientation
-    odom_msg.pose.pose.orientation.z = encoder_position.theta;
-    odom_msg.pose.pose.orientation.w = 0.0; // w orientation
-    // set the linear velocity 
-    odom_msg.twist.twist.linear.x = encoder_velocity.linear;
-    odom_msg.twist.twist.linear.y = 0.0;
-    odom_msg.twist.twist.linear.z = 0.0;
-    // set the angular velocity 
-    odom_msg.twist.twist.angular.x = 0.0;
-    odom_msg.twist.twist.angular.y = 0.0;
-    odom_msg.twist.twist.angular.z = encoder_velocity.angular;
+// void PublishWheelOdom() {
+//     // get current time for header timestamp field in microROS message
+//     odom_msg.header.frame_id.data = const_cast<char*>("odom");
+//     odom_msg.child_frame_id.data = const_cast<char*>("base_link");
+//     odom_msg.header.stamp.sec = (uint32_t) (esp_timer_get_time() / 1000000);
+//     odom_msg.header.stamp.nanosec = (uint32_t) (esp_timer_get_time() % 1000000) * 1000;
+//     // set the position
+//     odom_msg.pose.pose.position.x = encoder_position.x; // x position
+//     odom_msg.pose.pose.position.y = encoder_position.y; // y position
+//     odom_msg.pose.pose.position.z = 0.0; // z position
+//     // set the orientation
+//     odom_msg.pose.pose.orientation.x = 0.0; // x orientation 
+//     odom_msg.pose.pose.orientation.y = 0.0; // y orientation
+//     odom_msg.pose.pose.orientation.z = encoder_position.theta;
+//     odom_msg.pose.pose.orientation.w = 0.0; // w orientation
+//     // set the linear velocity 
+//     odom_msg.twist.twist.linear.x = encoder_velocity.linear;
+//     odom_msg.twist.twist.linear.y = 0.0;
+//     odom_msg.twist.twist.linear.z = 0.0;
+//     // set the angular velocity 
+//     odom_msg.twist.twist.angular.x = 0.0;
+//     odom_msg.twist.twist.angular.y = 0.0;
+//     odom_msg.twist.twist.angular.z = encoder_velocity.angular;
 
 
     
-    // publish odometry message
-    RCSOFTCHECK(rcl_publish(&publisher, (const void*)&odom_msg, NULL));
-    // get encoder data
-    GetEncoder(); 
-}
+//     // publish odometry message
+//     RCSOFTCHECK(rcl_publish(&publisher, (const void*)&odom_msg, NULL));
+//     // get encoder data
+//     GetEncoder(); 
+// }

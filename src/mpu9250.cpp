@@ -27,7 +27,7 @@ MPU9250_WE myMPU9250 = MPU9250_WE(MPU9250_ADDR);
 void setup_imu(imu_setup_t imu_setup) {
     // instantiate MPU9250 class
     // initialize MPU9250
-    Serial.begin(9600);
+    //Serial.begin(9600);
     Wire.begin();
     if(!myMPU9250.init()){
         Serial.println("MPU9250 does not respond");
@@ -41,8 +41,13 @@ void setup_imu(imu_setup_t imu_setup) {
     else{
        Serial.println("Magnetometer is connected");
      }
+
+    // myMPU9250.init();
+    // myMPU9250.initMagnetometer();
+
     delay(1000); // wait for sensor to stabilize
     myMPU9250.autoOffsets();
+    Serial.println("Auto Offsets set");
     
     
   /*  This is a more accurate method for calibration. You have to determine the minimum and maximum 

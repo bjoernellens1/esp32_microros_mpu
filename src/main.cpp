@@ -13,7 +13,7 @@ imu_setup_t imu_setup = {
     .direction = 0x68
 };
 
-#define USE_WIFI // Serial mode not working currently :(
+#define USE_SERIAL // Serial mode not working currently :(
 
 #ifdef USE_SERIAL
     void setup() 

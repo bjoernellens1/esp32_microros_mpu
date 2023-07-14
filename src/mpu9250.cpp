@@ -42,12 +42,10 @@ void setup_imu(imu_setup_t imu_setup) {
        Serial.println("Magnetometer is connected");
      }
 
-    // myMPU9250.init();
-    // myMPU9250.initMagnetometer();
 
     delay(1000); // wait for sensor to stabilize
-    //myMPU9250.autoOffsets(); # using fixed offsets for now. Should be changed when repositioning the sensor.
-    //Serial.println("Auto Offsets set");
+    myMPU9250.autoOffsets(); 
+    Serial.println("Auto Offsets set");
     
     
   /*  This is a more accurate method for calibration. You have to determine the minimum and maximum 
@@ -55,14 +53,14 @@ void setup_imu(imu_setup_t imu_setup) {
    *  You call the function as follows: setAccOffsets(xMin,xMax,yMin,yMax,zMin,zMax);
    *  Use either autoOffset or setAccOffsets, not both.
    */
-  myMPU9250.setAccOffsets(-4064.0, 5712.0, -3690.0, 15009.0, -13948.00, 19104.00);
+  //myMPU9250.setAccOffsets(-4064.0, 5712.0, -3690.0, 15009.0, -13948.00, 19104.00);
 
   /*  The gyroscope data is not zero, even if you don't move the MPU9250. 
    *  To start at zero, you can apply offset values. These are the gyroscope raw values you obtain
    *  using the +/- 250 degrees/s range. 
    *  Use either autoOffset or setGyrOffsets, not both.
    */
-  myMPU9250.setGyrOffsets(-155.0, 20.0, 16.0);
+  //myMPU9250.setGyrOffsets(-155.0, 20.0, 16.0);
 
   /*  You can enable or disable the digital low pass filter (DLPF). If you disable the DLPF, you 
    *  need to select the bandwdith, which can be either 8800 or 3600 Hz. 8800 Hz has a shorter delay,
